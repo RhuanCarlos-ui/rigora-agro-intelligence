@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rigora Agro Intelligence | Plataforma de Inteligência Agrícola</title>
+  <link rel="icon" href="data:,"> <!-- publicação GitHub Pages: evita o pedido de /favicon.ico (404) -->
+  
+  <!-- Fontes Corporativas (Inter) com fallback seguro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos da Aplicação -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       1. TELA DE LOGIN (DIVIDIDA EM DUAS ÁREAS NO DESKTOP)
+       ====================================================================== -->
+  <section id="view-login" class="login-view">
+    <!-- Painel Esquerdo: Identidade Visual Institucional -->
+    <div class="login-brand-panel">
+      <div class="brand-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        Global Solution 2026 • FIAP • CitizenTech
+      </div>
+
+      <div class="brand-hero-content">
+        <div class="brand-logo-title">
+          <svg class="brand-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+          Rigora Agro Intelligence
+        </div>
+        <h1 class="brand-phrase">
+          "Inteligência para transformar <strong>dados em decisões</strong> no campo."
+        </h1>
+        <p class="brand-description">
+          Apoiando pequenos cafeicultores de Minas Gerais com a democratização de dados agronômicos, econômicos e climáticos em uma interface simples, robusta e orientada a resultados.
+        </p>
+      </div>
+
+      <div class="brand-footer">
+        <span>© 2026 Rigora Agro Intelligence</span>
+        <span>•</span>
+        <span>Cafeicultura de Precisão e Inclusão Tecnológica</span>
+      </div>
+    </div>
+
+    <!-- Painel Direito: Formulário de Autenticação Demonstrativo -->
+    <div class="login-form-panel">
+      <div class="login-card">
+        <div class="login-card-header">
+          <h2>Acesso à Plataforma</h2>
+          <p>Selecione suas credenciais demonstrativas para acessar o painel</p>
+        </div>
+
+        <div class="login-demo-alert">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div>
+            <strong>Ambiente Demonstrativo</strong>
+            <div>Acesso pré-configurado para avaliação da Global Solution. Não é necessário digitar senhas reais.</div>
+          </div>
+        </div>
+
+        <form id="form-login" class="login-form" onsubmit="event.preventDefault(); RigoraApp.login();">
+          <div class="form-group">
+            <label for="login-email">E-mail do Produtor / Cooperativa</label>
+            <input type="email" id="login-email" class="form-input" value="cafeicultor.cerrado@rigora.agro" required>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Senha de Acesso</label>
+            <input type="password" id="login-password" class="form-input" value="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn-primary" id="btn-login-submit">
+            <span>Entrar no Dashboard</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+
+        <p class="login-disclaimer">
+          Ambiente demonstrativo • Sem validação de credenciais de produção
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       2. LAYOUT INTERNO DA APLICAÇÃO (SIDEBAR + TOPBAR + TELAS)
+       ====================================================================== -->
+  <div id="view-app" class="app-layout" style="display: none;">
+    
+    <!-- Menu Lateral Esquerdo Fixo -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="sidebar-logo" onclick="event.preventDefault(); RigoraApp.navigate('overview');">
+          <svg class="sidebar-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+          <span>Rigora Agro</span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <!-- 1. Visão Geral -->
+        <a href="#overview" class="nav-link active" id="nav-overview" onclick="RigoraApp.navigate('overview', event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="9"></rect>
+            <rect x="14" y="3" width="7" height="5"></rect>
+            <rect x="14" y="12" width="7" height="9"></rect>
+            <rect x="3" y="16" width="7" height="5"></rect>
+          </svg>
+          <span>Visão Geral</span>
+        </a>
+
+        <!-- 2. Propriedades e Safras -->
+        <a href="#properties" class="nav-link" id="nav-properties" onclick="RigoraApp.navigate('properties', event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Propriedades e Safras</span>
+        </a>
+
+        <!-- 3. Inteligência e Projeções -->
+        <a href="#intelligence" class="nav-link" id="nav-intelligence" onclick="RigoraApp.navigate('intelligence', event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span>Inteligência e Projeções</span>
+        </a>
+
+        <!-- 4. Automações -->
+        <a href="#automations" class="nav-link" id="nav-automations" onclick="RigoraApp.navigate('automations', event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
+          </svg>
+          <span>Automações</span>
+        </a>
+
+        <!-- 5. Fontes de Dados -->
+        <a href="#sources" class="nav-link" id="nav-sources" onclick="RigoraApp.navigate('sources', event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+          </svg>
+          <span>Fontes de Dados</span>
+        </a>
+      </nav>
+
+      <!-- 6. Sair -->
+      <div class="sidebar-footer">
+        <a href="#logout" class="nav-link nav-link-logout" onclick="RigoraApp.logout(event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Sair</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Área Principal de Conteúdo -->
+    <div class="main-wrapper">
+      
+      <!-- Barra Superior (Topbar) -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu-toggle" id="btn-mobile-menu" aria-label="Abrir Menu" onclick="RigoraApp.toggleMobileSidebar()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <h2 class="topbar-title" id="page-current-title">Visão Geral</h2>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Seletor de Propriedade -->
+          <div class="topbar-selector">
+            <select class="custom-select" id="select-property" onchange="RigoraApp.onPropertyChange(this.value)">
+              <option value="prop-01">Sítio Santa Rita do Cerrado · Patrocínio (MG)</option>
+            </select>
+          </div>
+
+          <!-- Safra Selecionada -->
+          <div class="topbar-selector">
+            <select class="custom-select" id="select-safra" onchange="RigoraApp.onSafraChange(this.value)" aria-label="Safra">
+              <option value="2027" selected>Safra 2027 (em andamento)</option>
+              <option value="2026">Safra 2026 (concluída)</option>
+            </select>
+          </div>
+
+          <!-- Ícone de Notificações com Dropdown -->
+          <div class="notif-wrapper">
+            <button class="icon-btn" id="btn-notifications" aria-label="Notificações" onclick="RigoraApp.toggleNotifications()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="notif-badge" id="notif-count">0</span>
+            </button>
+            <div class="notif-dropdown" id="notif-dropdown">
+              <div class="notif-dropdown-header">
+                <h4>Notificações da Safra</h4>
+                <button class="link-btn" onclick="RigoraApp.markAllAlertsSeen()">Marcar todos como vistos</button>
+              </div>
+              <div id="notif-items-list">
+                <!-- Inserido dinamicamente via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Identificação "Usuário Demo" -->
+          <div class="user-profile">
+            <div class="avatar">UD</div>
+            <div class="user-info">
+              <span class="user-name">Usuário Demo</span>
+              <span class="user-role">Pequeno Cafeicultor</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ==================================================================
+           TELA 1: VISÃO GERAL
+           ================================================================== -->
+      <main id="tab-overview" class="content-view active">
+        <div class="context-bar">
+          <div class="context-bar-left">
+            <div class="context-title" id="ov-context-title">Safra 2027 · Sítio Santa Rita do Cerrado</div>
+            <div class="context-sub" id="ov-context-sub">Patrocínio (MG) · 12,0 ha de café arábica</div>
+          </div>
+          <div class="filter-group" role="group" aria-label="Filtros da visão geral">
+            <label class="filter-label" for="ov-filter-talhao">Talhão</label>
+            <div class="segmented" id="ov-filter-talhao" role="radiogroup"></div>
+            <label class="toggle-inline">
+              <input type="checkbox" id="ov-compare-toggle" checked onchange="RigoraApp.setCompare(this.checked)">
+              <span>Comparar com safra anterior</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="legend-strip" aria-label="Legenda dos tipos de dado">
+          <span class="dtag dtag-oficial">Oficial</span><span class="legend-text">fonte pública identificada</span>
+          <span class="dtag dtag-estimado">Estimado</span><span class="legend-text">cálculo da Rigora com método documentado</span>
+          <span class="dtag dtag-demo">Demonstrativo</span><span class="legend-text">propriedade fictícia</span>
+          <button class="link-btn" onclick="RigoraApp.navigate('sources')">Ver metodologia →</button>
+        </div>
+
+        <!-- KPIs clicáveis -->
+        <section class="kpi-grid kpi-grid-5" id="ov-kpis" aria-label="Indicadores principais"></section>
+
+        <div class="dashboard-columns">
+          <div class="main-stack">
+            <div class="dashboard-card">
+              <div class="card-header-flex">
+                <div>
+                  <h3 class="card-title">Custos mensais e acumulado</h3>
+                  <p class="card-subtitle" id="ov-cost-subtitle">Livro-caixa da safra · barras = mês, linha = acumulado</p>
+                </div>
+                <span class="dtag dtag-demo">Demonstrativo</span>
+              </div>
+              <div class="chart-container" id="chart-monthly-costs"></div>
+            </div>
+
+            <div class="two-col">
+              <div class="dashboard-card">
+                <div class="card-header-flex">
+                  <div>
+                    <h3 class="card-title">Para onde vai o dinheiro</h3>
+                    <p class="card-subtitle">Clique numa categoria para ver os lançamentos</p>
+                  </div>
+                  <span class="dtag dtag-demo">Demonstrativo</span>
+                </div>
+                <div class="chart-container" id="chart-cost-category"></div>
+              </div>
+              <div class="dashboard-card">
+                <div class="card-header-flex">
+                  <div>
+                    <h3 class="card-title">Produtividade: sítio × município</h3>
+                    <p class="card-subtitle">Mesmo ano de colheita · sc/ha</p>
+                  </div>
+                  <span class="dtag-pair"><span class="dtag dtag-oficial">IBGE</span><span class="dtag dtag-demo">Sítio</span></span>
+                </div>
+                <div class="chart-container" id="chart-productivity-vs-ibge"></div>
+                <div class="chart-legend">
+                  <span><i style="background:#163D32"></i>Sítio (demonstrativo)</span>
+                  <span><i style="background:#0369A1"></i>Patrocínio (IBGE)</span>
+                  <span><i style="background:#94A3B8"></i>Minas Gerais (IBGE)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="side-stack">
+            <div class="dashboard-card" id="weather-card">
+              <div class="card-header-flex">
+                <div>
+                  <h3 class="card-title">Previsão do tempo</h3>
+                  <p class="card-subtitle" id="weather-subtitle">Patrocínio (MG) · INMET</p>
+                </div>
+                <span class="status-pill info" id="weather-status-badge"><span class="status-dot"></span> Carregando…</span>
+              </div>
+              <div id="weather-body"><div class="skeleton" style="height:150px"></div></div>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="card-header-flex">
+                <div>
+                  <h3 class="card-title">Central de alertas</h3>
+                  <p class="card-subtitle" id="alerts-summary">Gerados a partir dos dados disponíveis</p>
+                </div>
+              </div>
+              <div class="chip-row" id="alerts-filter" role="radiogroup" aria-label="Filtrar alertas"></div>
+              <div class="alert-list" id="overview-alerts-list"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ==================================================================
+           TELA 2: PROPRIEDADE E SAFRAS
+           ================================================================== -->
+      <main id="tab-properties" class="content-view">
+        <div class="context-bar">
+          <div class="context-bar-left">
+            <div class="context-title">Sítio Santa Rita do Cerrado <span class="dtag dtag-demo">Demonstrativo</span></div>
+            <div class="context-sub" id="prop-context-sub">Patrocínio (MG) · Cerrado Mineiro · 12,0 ha em 3 talhões de café arábica · sequeiro</div>
+          </div>
+          <button class="btn-primary btn-inline" onclick="RigoraApp.openNewActivityModal()">+ Novo lançamento</button>
+        </div>
+
+        <section class="talhao-grid" id="talhao-cards" aria-label="Talhões"></section>
+
+        <div class="two-col">
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">Custo por hectare por talhão</h3>
+                <p class="card-subtitle" id="talhao-cost-subtitle">Inclui rateio de lançamentos gerais pela área</p>
+              </div>
+              <span class="dtag dtag-demo">Demonstrativo</span>
+            </div>
+            <div class="chart-container" id="chart-talhao-cost"></div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">Produtividade por talhão (safra 2026)</h3>
+                <p class="card-subtitle">Linha tracejada: média do sítio na mesma safra</p>
+              </div>
+              <span class="dtag dtag-demo">Demonstrativo</span>
+            </div>
+            <div class="chart-container" id="chart-talhao-productivity"></div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header-flex wrap">
+            <div>
+              <h3 class="card-title">Livro-caixa</h3>
+              <p class="card-subtitle" id="ledger-summary">Lançamentos de custos</p>
+            </div>
+            <div class="filter-row">
+              <select class="custom-select sm" id="ledger-filter-safra" onchange="RigoraApp.renderLedger()" aria-label="Filtrar por safra"></select>
+              <select class="custom-select sm" id="ledger-filter-talhao" onchange="RigoraApp.renderLedger()" aria-label="Filtrar por talhão"></select>
+              <select class="custom-select sm" id="ledger-filter-category" onchange="RigoraApp.renderLedger()" aria-label="Filtrar por categoria"></select>
+              <button class="btn-secondary btn-inline sm" onclick="RigoraApp.clearLedgerFilters()">Limpar</button>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr><th>Data</th><th>Talhão</th><th>Categoria</th><th>Descrição</th><th class="num">Valor</th></tr>
+              </thead>
+              <tbody id="activities-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">Comercialização da safra 2026</h3>
+                <p class="card-subtitle" id="sales-summary"></p>
+              </div>
+              <span class="dtag dtag-demo">Demonstrativo</span>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead><tr><th>Data</th><th>Comprador</th><th class="num">Sacas</th><th class="num">Preço</th><th class="num">Cepea no mês</th></tr></thead>
+                <tbody id="sales-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">Estoque de insumos</h3>
+                <p class="card-subtitle">Usado pela automação de estoque mínimo</p>
+              </div>
+              <span class="dtag dtag-demo">Demonstrativo</span>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead><tr><th>Insumo</th><th class="num">Atual</th><th class="num">Mínimo</th><th>Situação</th></tr></thead>
+                <tbody id="inventory-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ==================================================================
+           TELA 3: INTELIGÊNCIA E PROJEÇÕES
+           ================================================================== -->
+      <main id="tab-intelligence" class="content-view">
+        <nav class="subnav" aria-label="Seções de inteligência">
+          <a href="#sec-sim" onclick="RigoraApp.scrollToSection(event,'sec-sim')">Simulador</a>
+          <a href="#sec-bench" onclick="RigoraApp.scrollToSection(event,'sec-bench')">Benchmark oficial</a>
+          <a href="#sec-market" onclick="RigoraApp.scrollToSection(event,'sec-market')">Mercado</a>
+          <a href="#sec-history" onclick="RigoraApp.scrollToSection(event,'sec-history')">Histórico do sítio</a>
+        </nav>
+
+        <!-- SIMULADOR -->
+        <section class="intelligence-section" id="sec-sim">
+          <div class="section-head">
+            <div>
+              <h3 class="card-title">Simulador financeiro da safra 2027</h3>
+              <p class="card-subtitle">Mude qualquer premissa: todos os resultados são recalculados na hora. Simulação não é previsão de lucro.</p>
+            </div>
+            <div class="seg-scenarios" role="radiogroup" aria-label="Cenário">
+              <button class="seg-btn" data-scn="conservative" onclick="RigoraApp.applyScenario('conservative')">Conservador</button>
+              <button class="seg-btn active" data-scn="base" onclick="RigoraApp.applyScenario('base')">Base</button>
+              <button class="seg-btn" data-scn="optimistic" onclick="RigoraApp.applyScenario('optimistic')">Otimista</button>
+            </div>
+          </div>
+
+          <div class="simulator-layout v2">
+            <div class="simulator-controls" id="sim-controls"></div>
+
+            <div class="simulator-results">
+              <div class="sim-hero" id="sim-hero"></div>
+              <div class="sim-kpi-row six" id="sim-kpis"></div>
+              <div class="sim-errors" id="sim-errors" role="alert"></div>
+              <div class="dashboard-card inset">
+                <div class="card-header-flex">
+                  <div>
+                    <h4 class="card-title sm">Quanto o preço da saca mexe no resultado</h4>
+                    <p class="card-subtitle">Área vermelha = prejuízo. Linhas: preço simulado, equilíbrio e Cepea out/2026.</p>
+                  </div>
+                </div>
+                <div class="chart-container" id="chart-sim-sensitivity"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-header-flex wrap">
+              <div>
+                <h4 class="card-title sm">Comparação de cenários</h4>
+                <p class="card-subtitle">Premissas transparentes e editáveis. Edite uma célula e o gráfico se atualiza.</p>
+              </div>
+              <button class="btn-secondary btn-inline sm" onclick="RigoraApp.resetScenarios()">Restaurar premissas</button>
+            </div>
+            <div class="scenario-layout">
+              <div class="table-wrapper">
+                <table class="data-table scenario-table" id="scenario-table"></table>
+              </div>
+              <div class="chart-container" id="chart-scenarios"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BENCHMARK OFICIAL -->
+        <section class="intelligence-section" id="sec-bench">
+          <div class="section-head">
+            <div>
+              <h3 class="card-title">Benchmark oficial · produtividade do café arábica em Minas Gerais</h3>
+              <p class="card-subtitle" id="bench-source-line">IBGE · Produção Agrícola Municipal</p>
+            </div>
+            <span class="status-pill info" id="regional-status-badge"><span class="status-dot"></span> Carregando…</span>
+          </div>
+          <div class="filter-row card-filters">
+            <label class="filter-label" for="bench-year">Ano</label>
+            <select class="custom-select sm" id="bench-year" onchange="RigoraApp.renderBenchmark()"></select>
+            <label class="filter-label" for="bench-meso">Região</label>
+            <select class="custom-select sm" id="bench-meso" onchange="RigoraApp.renderBenchmark()"></select>
+            <label class="filter-label" for="bench-muni">Município em destaque</label>
+            <select class="custom-select sm" id="bench-muni" onchange="RigoraApp.renderBenchmark()"></select>
+            <button class="btn-secondary btn-inline sm" id="btn-refresh-ibge" onclick="RigoraApp.refreshIbge(true)">Atualizar do IBGE</button>
+          </div>
+          <div class="two-col">
+            <div class="dashboard-card">
+              <div class="card-header-flex">
+                <div>
+                  <h4 class="card-title sm" id="bench-rank-title">Ranking de produtividade</h4>
+                  <p class="card-subtitle" id="bench-rank-sub">Maiores municípios produtores (área colhida)</p>
+                </div>
+                <span class="dtag dtag-oficial">Oficial</span>
+              </div>
+              <div class="chart-container" id="chart-bench-ranking"></div>
+            </div>
+            <div class="dashboard-card">
+              <div class="card-header-flex">
+                <div>
+                  <h4 class="card-title sm" id="bench-series-title">Evolução 2016–2025</h4>
+                  <p class="card-subtitle">A bienalidade do café aparece no sobe e desce anual</p>
+                </div>
+                <span class="dtag dtag-oficial">Oficial</span>
+              </div>
+              <div class="chart-container" id="chart-bench-series"></div>
+              <div class="chart-legend" id="bench-series-legend"></div>
+            </div>
+          </div>
+          <div class="insight-row" id="bench-insights"></div>
+        </section>
+
+        <!-- MERCADO -->
+        <section class="intelligence-section" id="sec-market">
+          <div class="section-head">
+            <div>
+              <h3 class="card-title">Mercado · preço do café arábica em 2026</h3>
+              <p class="card-subtitle">Linha: Indicador CEPEA/ESALQ (médias mensais). Losangos: vendas registradas pelo sítio.</p>
+            </div>
+            <span class="dtag-pair"><span class="dtag dtag-oficial">Cepea</span><span class="dtag dtag-demo">Vendas</span></span>
+          </div>
+          <div class="dashboard-card">
+            <div class="chart-container" id="chart-market"></div>
+            <div class="chart-legend">
+              <span><i style="background:#0369A1"></i>Cepea (média mensal)</span>
+              <span><i style="background:#B45309"></i>Venda do sítio (demonstrativo)</span>
+              <span><i style="background:#DC2626"></i>Custo por saca da safra 2026</span>
+            </div>
+            <p class="source-note" id="market-note"></p>
+          </div>
+        </section>
+
+        <!-- HISTÓRICO -->
+        <section class="intelligence-section" id="sec-history">
+          <div class="section-head">
+            <div>
+              <h3 class="card-title">Histórico do sítio</h3>
+              <p class="card-subtitle">2022–2025 agregados · 2026 calculado do livro-caixa</p>
+            </div>
+            <span class="dtag dtag-demo">Demonstrativo</span>
+          </div>
+          <div class="dashboard-card">
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Safra</th><th class="num">Produtividade</th><th class="num">Patrocínio (IBGE)</th><th class="num">Custo/ha</th><th class="num">Custo/saca</th><th class="num">Preço médio</th><th class="num">Resultado/ha</th></tr>
+                </thead>
+                <tbody id="historical-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- ==================================================================
+           TELA 4: AUTOMAÇÕES
+           ================================================================== -->
+      <main id="tab-automations" class="content-view">
+        <div class="context-bar">
+          <div class="context-bar-left">
+            <div class="context-title">Automações</div>
+            <div class="context-sub">Regras que geram os alertas da Visão Geral. Ajuste limites e teste com os dados atuais.</div>
+          </div>
+        </div>
+        <div class="automations-grid" id="automations-grid"></div>
+        <div class="dashboard-card">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">Registro de execução</h3>
+              <p class="card-subtitle">Cada teste mostra os dados de entrada usados</p>
+            </div>
+            <button class="btn-secondary btn-inline sm" onclick="RigoraApp.clearRuleLog()">Limpar</button>
+          </div>
+          <div id="rule-test-console" class="rule-console"><div class="muted">// Pronto. Clique em "Testar agora" numa regra.</div></div>
+        </div>
+      </main>
+
+      <!-- ==================================================================
+           TELA 5: FONTES DE DADOS E TRANSPARÊNCIA
+           ================================================================== -->
+      <main id="tab-sources" class="content-view">
+        <div class="context-bar">
+          <div class="context-bar-left">
+            <div class="context-title">Transparência dos dados</div>
+            <div class="context-sub">De onde vem cada número, quando foi coletado e o que ele não diz.</div>
+          </div>
+        </div>
+        <div class="legend-strip">
+          <span class="dtag dtag-oficial">Oficial</span><span class="legend-text">obtido diretamente de fonte pública identificada</span>
+          <span class="dtag dtag-estimado">Estimado</span><span class="legend-text">calculado pela Rigora com método documentado</span>
+          <span class="dtag dtag-demo">Demonstrativo</span><span class="legend-text">simula a propriedade fictícia</span>
+        </div>
+        <div class="source-grid" id="data-sources-grid"></div>
+        <div class="dashboard-card">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">Registro de integrações</h3>
+              <p class="card-subtitle">Consultas às APIs nesta sessão</p>
+            </div>
+          </div>
+          <div id="integration-log" class="rule-console light"></div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- PAINEL LATERAL: DETALHE DO INDICADOR -->
+  <div class="drawer-overlay" id="kpi-drawer-overlay" onclick="RigoraApp.closeDrawer()"></div>
+  <aside class="drawer" id="kpi-drawer" aria-hidden="true" aria-labelledby="drawer-title" role="dialog">
+    <div class="drawer-header">
+      <div>
+        <div class="drawer-eyebrow" id="drawer-eyebrow">Indicador</div>
+        <h3 id="drawer-title">—</h3>
+      </div>
+      <button class="modal-close-btn" onclick="RigoraApp.closeDrawer()" aria-label="Fechar detalhe">&times;</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+  </aside>
+
+  <!-- ======================================================================
+       MODAL: NOVO LANÇAMENTO (fica salvo apenas nesta sessão)
+       ====================================================================== -->
+  <div class="modal-overlay" id="modal-activity">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Novo lançamento de custo</h3>
+        <button class="modal-close-btn" onclick="RigoraApp.closeNewActivityModal()" aria-label="Fechar">&times;</button>
+      </div>
+      <form id="form-new-activity" onsubmit="event.preventDefault(); RigoraApp.submitNewActivity();" novalidate>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="act-talhao">Talhão</label>
+            <select id="act-talhao" class="form-input" required></select>
+          </div>
+          <div class="form-group">
+            <label for="act-category">Categoria</label>
+            <select id="act-category" class="form-input" required></select>
+          </div>
+          <div class="form-group">
+            <label for="act-date">Data</label>
+            <input type="date" id="act-date" class="form-input" required min="2026-09-01" max="2027-08-31">
+            <small class="field-hint">Lançamentos a partir de 01/09/2026 entram na safra 2027.</small>
+          </div>
+          <div class="form-group">
+            <label for="act-desc">Descrição</label>
+            <input type="text" id="act-desc" class="form-input" placeholder="Ex.: Adubação NPK - 2ª parcela" required maxlength="90">
+          </div>
+          <div class="form-group">
+            <label for="act-cost">Valor (R$)</label>
+            <input type="number" id="act-cost" class="form-input" placeholder="Ex.: 3500" step="0.01" min="1" required>
+          </div>
+          <small class="field-hint" id="act-storage-hint">O lançamento fica salvo só neste navegador, neste computador. Não há conta nem sincronização com outros aparelhos.</small>
+          <div class="form-error" id="act-error" role="alert"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="RigoraApp.closeNewActivityModal()">Cancelar</button>
+          <button type="submit" class="btn-primary">Salvar lançamento</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts (sem dependências externas) -->
+  <script src="js/data.js"></script>
+  <script src="js/snapshots.js"></script>
+  <script src="js/metrics.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "source": "inmet_previsao_3148103",
+  "url": "https://apiprevmet3.inmet.gov.br/previsao/3148103",
+  "collected_at": "2026-11-14T16:13:00+00:00",
+  "path": "dados_demonstracao/inmet_previsao_3148103_amostra.json",
+  "sha256": "157bbad48948b405f4b9fba8fbb4e7fb0dbb1ee489dcd9ab64524dc72aed4d6b",
+  "records": 5,
+  "observacao": "DADOS DE DEMONSTRAÇÃO: amostra reduzida (fixture dos testes), não é uma coleta completa"
+}

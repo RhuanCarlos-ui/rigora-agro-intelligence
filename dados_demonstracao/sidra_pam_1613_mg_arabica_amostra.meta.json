@@ -1,0 +1,9 @@
+{
+  "source": "sidra_pam_1613_mg_arabica",
+  "url": "https://apisidra.ibge.gov.br/values/t/1613/n6/in%20n3%2031/v/112,216,214/p/2016-2025/c82/31619",
+  "collected_at": "2026-11-14T16:11:00+00:00",
+  "path": "dados_demonstracao/sidra_pam_1613_mg_arabica_amostra.json",
+  "sha256": "5f5642135288265e3131ebd188fadf7940b0df72fb8447d3b9106f7bfecb9c72",
+  "records": 120,
+  "observacao": "DADOS DE DEMONSTRAÇÃO: amostra reduzida (fixture dos testes), não é uma coleta completa"
+}

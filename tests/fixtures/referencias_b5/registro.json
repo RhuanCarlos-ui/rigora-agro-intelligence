@@ -1,0 +1,18 @@
+{
+  "versao": 1,
+  "ativa": "historica-20261114",
+  "referencias": [
+    {
+      "id": "historica-20261114",
+      "arquivo": "tests/fixtures/snapshots_manual_20261114.js",
+      "sha256": "410fa9cb428b440f4eb71f2de29998cb72922595d8ec04e4657cffcc2d61b0d5",
+      "status": "aprovada",
+      "criadaEm": "2026-11-14",
+      "fonte": "cópia manual de 14/11/2026 (IBGE/SIDRA e INMET)",
+      "aprovadaEm": "2026-11-15",
+      "responsavel": "aprovação da B5",
+      "justificativa": "referência histórica do T0 e da B5",
+      "diferencas": []
+    }
+  ]
+}

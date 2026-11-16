@@ -1,0 +1,23 @@
+COMO ABRIR O RIGORA AGRO INTELLIGENCE 1.0
+
+1. Abra esta pasta.
+2. Dê dois cliques em index.html.
+3. O Rigora será aberto no navegador.
+4. Utilize o menu lateral para navegar pelo sistema.
+
+Na tela de acesso, clique em "Entrar no Dashboard". O ambiente é demonstrativo
+e não pede senha.
+
+Não é preciso instalar nada nem abrir o terminal. Não existe INICIAR_RIGORA.bat
+porque ele não é necessário: a aplicação funciona direto pelo index.html.
+
+Sem internet, os dados do IBGE aparecem como "cópia oficial de 14/11/2026", e a
+previsão do tempo do INMET aparece como "indisponível". Isso é proposital: uma
+previsão antiga nunca é mostrada como atual. Com internet, a previsão é
+consultada ao vivo.
+
+Se o index.html abrir no Bloco de Notas: clique com o botão direito nele,
+escolha "Abrir com" e selecione o Edge ou o Chrome.
+
+Para rodar os testes e o pipeline (opcional, para quem programa):
+README_EXECUCAO.md

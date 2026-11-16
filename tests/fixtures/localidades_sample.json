@@ -1,0 +1,38 @@
+[
+ {
+  "id": 3148103,
+  "nome": "Patrocínio",
+  "microrregiao": {
+   "mesorregiao": {
+    "nome": "Triângulo Mineiro/Alto Paranaíba"
+   }
+  }
+ },
+ {
+  "id": 3139409,
+  "nome": "Manhuaçu",
+  "microrregiao": {
+   "mesorregiao": {
+    "nome": "Zona da Mata"
+   }
+  }
+ },
+ {
+  "id": 3143104,
+  "nome": "Monte Carmelo",
+  "microrregiao": {
+   "mesorregiao": {
+    "nome": "Triângulo Mineiro/Alto Paranaíba"
+   }
+  }
+ },
+ {
+  "id": 3111507,
+  "nome": "Campos Altos",
+  "microrregiao": {
+   "mesorregiao": {
+    "nome": "Triângulo Mineiro/Alto Paranaíba"
+   }
+  }
+ }
+]

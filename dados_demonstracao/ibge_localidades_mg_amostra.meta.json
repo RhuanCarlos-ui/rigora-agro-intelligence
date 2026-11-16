@@ -1,0 +1,9 @@
+{
+  "source": "ibge_localidades_mg",
+  "url": "https://servicodados.ibge.gov.br/api/v1/localidades/estados/31/municipios",
+  "collected_at": "2026-11-14T16:11:00+00:00",
+  "path": "dados_demonstracao/ibge_localidades_mg_amostra.json",
+  "sha256": "aeeeac09f218725cf0ced8f2eb93cce9dafbca103740e926510c6f6eb499525c",
+  "records": 4,
+  "observacao": "DADOS DE DEMONSTRAÇÃO: amostra reduzida (fixture dos testes), não é uma coleta completa"
+}

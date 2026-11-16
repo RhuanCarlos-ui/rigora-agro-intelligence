@@ -1,0 +1,6 @@
+# Dados gerados localmente pelo pipeline
+data/raw/
+data/processed/
+data/*.db
+__pycache__/
+.pytest_cache/
